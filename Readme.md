@@ -1,7 +1,7 @@
 # Личный проект «TaskForce»
 
 * Студент: [Вячеслав Корзун](https://up.htmlacademy.ru/yii/4/user/240581).
-* Наставник: `Неизвестно`.
+* Наставник: [Денис Ходаковский](https://htmlacademy.ru/profile/id1232355).
 
 ---
 
