@@ -74,8 +74,8 @@ class MyTasksController extends SecuredController
 
         if (Yii::$app->user->can(User::ROLE_EXECUTOR)) {
             $this->setMeta('Мои просроченные задания');
-
-            $query->andWhere('task_deadline < :timestamp', ['timestamp' => new Expression('NOW()')]);
+            
+            $query->andWhere('task_deadline < :timestamp', ['timestamp' => new Expression(date("Y-m-d H:i:s"))]);
         }
 
         $dataProvider = new ActiveDataProvider([
