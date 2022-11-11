@@ -10,14 +10,14 @@ CREATE TABLE `category` (
     `icon` VARCHAR(10) NOT NULL
 );
 
-CREATE TABLE city (
+CREATE TABLE `city` (
     `city_id` INT PRIMARY KEY AUTO_INCREMENT,
     `city_name` VARCHAR(50) NOT NULL,
     `city_latitude` VARCHAR(255),
     `city_longitude` VARCHAR(255)
 );
 
-CREATE TABLE user (
+CREATE TABLE `user` (
     `user_id` INT PRIMARY KEY AUTO_INCREMENT,
     `name` VARCHAR(50) NOT NULL,
     `email` VARCHAR(255) NOT NULL UNIQUE,
