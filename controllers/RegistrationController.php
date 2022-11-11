@@ -8,6 +8,9 @@ use yii\filters\AccessControl;
 
 class RegistrationController extends \yii\web\Controller
 {
+    /**
+     * @inheritDoc
+     */
     public function behaviors()
     {
         return [
@@ -28,6 +31,11 @@ class RegistrationController extends \yii\web\Controller
         ];
     }
 
+    /**
+     * Страница с формой регистрации нового пользователя
+     * 
+     * @return string cтраница с формой регистрации
+     */
     public function actionIndex()
     {
         $this->view->title = 'Регистрация';

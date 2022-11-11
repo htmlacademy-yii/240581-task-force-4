@@ -21,6 +21,9 @@ class EditProfileForm extends Model
     public $categories;
     public $avatar;
 
+    /**
+     * @inheritDoc
+     */
     public function rules(): array
     {
         return [
@@ -35,6 +38,9 @@ class EditProfileForm extends Model
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function attributeLabels(): array
     {
         return [
@@ -49,7 +55,12 @@ class EditProfileForm extends Model
         ];
     }
 
-    public function getUser()
+    /**
+     * Метод получения данных пользователя с имеющимися у него категориями заданий с id, равным текущему пользователю
+     * 
+     * @return User|null $user - объект класса User
+     */
+    public function getUser(): ?User
     {
         return User::find()
             ->with('categories')
@@ -57,6 +68,12 @@ class EditProfileForm extends Model
             ->one();
     }
 
+    /**
+     * Метод автозаполнения полей формы настройки профиля пользователя данными из БД
+     * 
+     * @param object $form - форма настройки профиля пользователя 
+     * @param User $user - объект класса User
+     */
     public function autocompleteForm($form, $user): void
     {
         $form->avatar = Yii::$app->user->identity->avatar;
@@ -69,6 +86,13 @@ class EditProfileForm extends Model
         $form->categories = $user->categories;
     }
 
+    /**
+     * Метод сохранения данных из формы настройки профиля пользователя в БД
+     *  
+     * @param User $user - объект класса User
+     * @throws DataSaveException
+     * @throws FileExistException
+     */
     public function takeUser($user): void
     {
         if (!$this->uploadAvatar($user) && $this->avatar) {
@@ -96,7 +120,7 @@ class EditProfileForm extends Model
 
         try {
             if (!empty($this->categories)) {
-                UserCategory::deleteAllUserCategories(Yii::$app->user->id);
+                UserCategory::deleteAllUserCategories();
 
                 foreach ($this->categories as $userCategory) {
                     $newCategory = new UserCategory();
@@ -115,6 +139,13 @@ class EditProfileForm extends Model
         }
     }
 
+    /**
+     * Метод загрузки аватара пользователя в БД
+     *  
+     * @param User $user - объект класса User
+     * @return bool
+     * @throws DataSaveException
+     */
     public function uploadAvatar($user): bool
     {
         if ($this->validate() && $this->avatar) {

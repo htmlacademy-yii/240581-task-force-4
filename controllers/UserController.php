@@ -18,10 +18,12 @@ class UserController extends SecuredController
     /**
      * Страница просмотра профиля исполнителя
      *
+     * @param int $id - id пользователя
      * @return string - код страницы просмотра задания
+     * @throws NotFoundHttpException
      */
 
-    public function actionView(int $id)
+    public function actionView(int $id): string
     {
         // Страница предназначена только для показа профилей исполнителей. Соответственно, если этот пользователь не является исполнителем, то страница должна быть недоступна: вместо неё надо показывать ошибку 404.
         if (User::ROLE_CUSTOMER === array_values(Yii::$app->authManager->getRolesByUser($id))[0]->name) {
@@ -89,12 +91,20 @@ class UserController extends SecuredController
         );
     }
 
+    /**
+     * Действие по "разлогиниванию" пользователя
+     *
+     */
     public function actionLogout()
     {
         Yii::$app->user->logout();
         return Yii::$app->response->redirect(['login']);
     }
 
+    /**
+     * Страница с формой настройки профиля пользователя
+     * 
+     */
     public function actionEdit()
     {
         $this->setMeta('Настройки профиля');
@@ -117,7 +127,12 @@ class UserController extends SecuredController
         return $this->render('edit-profile', ['editProfileForm' => $editProfileForm, 'categories' => $categories]);
     }
 
-    public function actionSet()
+    /**
+     * Страница с формой настроек безопасности пользователя
+     * 
+     * @return string Страница с формой настроек безопасности
+     */
+    public function actionSet(): string
     {
         $this->setMeta('Настройки безопасности');
 

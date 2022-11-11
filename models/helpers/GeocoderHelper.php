@@ -5,7 +5,7 @@ namespace app\models\helpers;
 use Yii;
 use yii\helpers\ArrayHelper;
 use GuzzleHttp\Client;
-use TaskForce\exceptions\GeocoderException;
+use app\models\exceptions\GeocoderException;
 
 class GeocoderHelper
 {
@@ -20,6 +20,13 @@ class GeocoderHelper
     public string $apiKey;
     public string $baseUri;
 
+    /**
+     * Метод url-запроса к сервису Geocoder
+     * 
+     * @param string $location - строка с искомым адресом
+     * @return Client
+     * @throws GeocoderException
+     */
     private static function requestGeocoder(string $location): object
     {
         $client = new Client([
@@ -34,6 +41,13 @@ class GeocoderHelper
         return $client->request('GET', '1.x', ['query' => $query]);
     }
 
+    /**
+     * Метод получения координат из запроса в Geocoder
+     * 
+     * @param string $location - строка с искомым адресом
+     * @return array - массив с географическими координатами адреса
+     * @throws GeocoderException
+     */
     public static function getCoordinates(string $location): array
     {
         $response = self::requestGeocoder($location);
@@ -51,6 +65,14 @@ class GeocoderHelper
         return explode(' ', $coordinates);
     }
 
+    /**
+     * Метод получения адреса по координатам из запроса в Geocoder
+     * 
+     * @param float $longitude - координата географической долготы
+     * @param float $latitude - координата географической широты
+     * @return array - массив с ключами: 'city' и 'adress'
+     * @throws GeocoderException
+     */
     public static function getAdress(float $longitude, float $latitude): array
     {
         $location = $longitude . ',' . $latitude;

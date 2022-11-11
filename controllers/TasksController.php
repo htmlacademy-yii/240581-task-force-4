@@ -64,6 +64,8 @@ class TasksController extends SecuredController
     /**
      * Действие скачивания файла задания
      *
+     * @param string $path - имя файла с расширением
+     * 
      */
     public function actionDownload($path)
     {
@@ -73,7 +75,9 @@ class TasksController extends SecuredController
     /**
      * Страница просмотра задания
      *
+     * @param int $id - id задания
      * @return string - код страницы просмотра задания
+     * @throws NotFoundHttpException
      */
     public function actionView(int $id): Response|string
     {
@@ -141,7 +145,7 @@ class TasksController extends SecuredController
      * 
      * @return string - код страницы с формой создания задания
      */
-    public function actionCreate()
+    public function actionCreate(): string
     {
         $this->setMeta('Создать задание');
 
@@ -164,9 +168,12 @@ class TasksController extends SecuredController
 
     /**
      * Действие по отмене задания
-     *
+     * 
+     * @param int $id - id задания
+     * @return Response
+     * @throws DataSaveException
      */
-    public function actionCancel($id)
+    public function actionCancel($id): Response
     {
         $this->setMeta('Отменить задание');
 
@@ -186,8 +193,10 @@ class TasksController extends SecuredController
     /**
      * Действие по отказу от отклика на задание
      *
+     * @param int $respond_id - id отклика на задание
+     * @return Response
      */
-    public function actionReject(int $respond_id)
+    public function actionReject(int $respond_id): Response
     {
         $response = Respond::processOffer($respond_id, Respond::STATUS_REJECTED);
 
@@ -197,8 +206,10 @@ class TasksController extends SecuredController
     /**
      * Действие по принятию отклика на задание
      *
+     * @param int $respond_id - id отклика на задание
+     * @return Response
      */
-    public function actionAccept(int $respond_id)
+    public function actionAccept(int $respond_id): Response
     {
         $response = Respond::processOffer($respond_id, Respond::STATUS_ACCEPTED);
 
@@ -208,8 +219,9 @@ class TasksController extends SecuredController
     /**
      * Действие по отклику на задание
      *
+     * @return Response
      */
-    public function actionRespond()
+    public function actionRespond(): Response
     {
         $responseForm = new RespondForm();
         if (Yii::$app->request->getIsPost()) {
@@ -225,8 +237,11 @@ class TasksController extends SecuredController
     /**
      * Действие по отказу от задания
      *
+     * @param int $id - id задания
+     * @return Response
+     * @throws DataSaveException
      */
-    public function actionRefuse(int $id)
+    public function actionRefuse(int $id): Response
     {
         $task = Task::findOne($id);
         $task->task_status = Task::STATUS_FAILED;
@@ -241,8 +256,9 @@ class TasksController extends SecuredController
     /**
      * Действие завершению задания пользователем
      *
+     * @return Response
      */
-    public function actionComplete()
+    public function actionComplete(): Response
     {
         $completeForm = new CompleteForm();
 

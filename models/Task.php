@@ -117,8 +117,8 @@ class Task extends \yii\db\ActiveRecord
 
     /**
      * Функция возвращения  статуса, в которой перейдёт задание после выполнения указанного действия
-     * @param string $action - применяемое к заданию действие
      * 
+     * @param string $action - применяемое к заданию действие
      * @return string - следующй статус задания либо null
      */
     public function getNextStatus(string $action): string
@@ -138,8 +138,8 @@ class Task extends \yii\db\ActiveRecord
 
     /**
      * Функция возвращения доступных действий для задания в зависимости от каегории актора
-     * @param int $userId - id пользователя
      * 
+     * @param int $userId - id пользователя
      * @return object - доступное пользователю действие с заданием или null
      */
     public function getAvailableActions($user): ?object
@@ -243,6 +243,13 @@ class Task extends \yii\db\ActiveRecord
         return $this->hasMany(Respond::class, ['task_id' => 'task_id']);
     }
 
+    /**
+     * Метод получения задач пользователя
+     * 
+     * @param string $taskStatus - статус задания
+     * @param int $user_id - id пользователя
+     * @return \yii\db\ActiveQuery
+     */
     public static function getMyTasks(string $taskStatus, int $user_id): ActiveQuery
     {
         return Task::find()
@@ -250,6 +257,12 @@ class Task extends \yii\db\ActiveRecord
             ->andWhere(['task_status' => $taskStatus]);
     }
 
+    /**
+     * Метод получения закрытых задач пользователя (неимеющих статус 'Новое' и ' В работе')
+     * 
+     * @param int $user_id - id пользователя
+     * @return \yii\db\ActiveQuery
+     */
     public static function getMyClosedTasks(int $user_id): ActiveQuery
     {
         return Task::find()

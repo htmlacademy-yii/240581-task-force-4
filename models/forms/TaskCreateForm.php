@@ -27,6 +27,9 @@ class TaskCreateForm extends Model
     private const MIN_VALUE_TASKBUDGET = 0;
     private const MAX_COUNT_FILES = 10;
 
+    /**
+     * @inheritDoc
+     */
     public function attributeLabels()
     {
         return [
@@ -41,6 +44,9 @@ class TaskCreateForm extends Model
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function rules()
     {
         return [
@@ -58,6 +64,12 @@ class TaskCreateForm extends Model
         ];
     }
 
+    /**
+     * Метод добавления нового задания
+     * 
+     * @return Task $task - объект класса Task
+     * @throws DataSaveException
+     */
     public function addTask()
     {
         $task = new Task();
@@ -85,7 +97,14 @@ class TaskCreateForm extends Model
         return  $task;
     }
 
-    public function uploadFiles($taskId)
+    /**
+     * Метод добавления файла(файлов) нового задания
+     * 
+     * @param int $taskId - id нового задания
+     * @return bool
+     * @throws DataSaveException
+     */
+    public function uploadFiles($taskId): bool
     {
         if ($this->validate() && !empty($this->files)) {
             foreach ($this->files as $file) {
@@ -108,6 +127,13 @@ class TaskCreateForm extends Model
         return false;
     }
 
+    /**
+     * Метод выполнения транзакции: добавление нового задания и файла (файлов) к нему в БД
+     * 
+     * @param object $taskAddForm - id нового задания
+     * @return Response
+     * @throws DataSaveException
+     */
     public function makeTransaction($taskAddForm)
     {
         $transaction = Yii::$app->db->beginTransaction();

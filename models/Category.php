@@ -19,6 +19,7 @@ class Category extends \yii\db\ActiveRecord
 {
     private const MAX_LENGTH_CATEGORY_NAME = 30;
     private const MAX_LENGTH_ICON = 10;
+    
     /**
      * {@inheritdoc}
      */

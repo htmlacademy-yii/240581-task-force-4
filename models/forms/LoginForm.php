@@ -12,6 +12,9 @@ class LoginForm extends Model
 
     private $_user;
 
+    /**
+     * @inheritDoc
+     */
     public function rules()
     {
         return [
@@ -20,6 +23,11 @@ class LoginForm extends Model
         ];
     }
 
+    /**
+     * Метод валидации пароля при входе пользователя
+     * 
+     * @param string $attribute - строка из поля 'password' формы входа
+     */
     public function validatePassword($attribute)
     {
         if (!$this->hasErrors()) {
@@ -30,7 +38,12 @@ class LoginForm extends Model
         }
     }
 
-    public function getUser()
+    /**
+     * Метод получения данных пользователя по email
+     * 
+     * @return User|null $user - объект класса User
+     */
+    public function getUser(): User
     {
         if (null === $this->_user) {
             $this->_user = User::findOne(['email' => $this->email]);

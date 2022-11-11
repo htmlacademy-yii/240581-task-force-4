@@ -15,6 +15,9 @@ class CompleteForm extends Model
     private const MIN_GRADE = 0;
     private const MAX_GRADE = 5;
 
+    /**
+     * @inheritDoc
+     */
     public function rules()
     {
         return [
@@ -25,6 +28,9 @@ class CompleteForm extends Model
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function attributeLabels()
     {
         return [
@@ -33,7 +39,13 @@ class CompleteForm extends Model
         ];
     }
 
-    public function createComplete()
+    /**
+     * Метод создания отзыва о выполнении задания
+     * 
+     * @return Task|null
+     * @throws DataSaveException
+     */
+    public function createComplete(): ?Task
     {
         $review = Task::findOne(['task_id' => $this->taskId]);
         $review->review = $this->review;

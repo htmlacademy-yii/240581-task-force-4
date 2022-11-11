@@ -7,6 +7,9 @@ use yii\web\Controller;
 
 abstract class SecuredController extends Controller
 {
+    /**
+     * @inheritDoc
+     */
     public function behaviors()
     {
         return [
@@ -25,7 +28,15 @@ abstract class SecuredController extends Controller
         ];
     }
 
-    protected function setMeta($title = null, $description = null, $keywords = null)
+
+    /**
+     * Метод регистрации титла страницы и метатегов для поисковых механизмов
+     * 
+     * @param string $title - титл страницы;
+     * @param string $description - дескрипшен страницы;
+     * @param string $keywords - ключевые слова страницы;
+     */
+    protected function setMeta($title = null, $description = null, $keywords = null): void
     {
         $this->view->title = $title;
         $this->view->registerMetaTag(['name' => 'description', 'content' => $description]);

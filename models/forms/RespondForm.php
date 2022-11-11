@@ -16,6 +16,9 @@ class RespondForm extends Model
 
     private const PRICE_VALUE = 0;
 
+    /**
+     * @inheritDoc
+     */
     public function rules()
     {
         return [
@@ -25,6 +28,9 @@ class RespondForm extends Model
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function attributeLabels()
     {
         return [
@@ -33,7 +39,13 @@ class RespondForm extends Model
         ];
     }
 
-    public function createResponse()
+    /**
+     * Метод создания нового отклика на задание
+     * 
+     * @return Respond $response - объект класса Respond
+     * @throws DataSaveException
+     */
+    public function createResponse(): Respond
     {
         $response = new Respond();
         $response->executor_id = Yii::$app->user->id;

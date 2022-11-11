@@ -66,7 +66,7 @@ class TaskFilterForm extends Model
     /**
      * Функция выборки параметров нового задания
      * 
-     * @return  - результат выборки
+     * @return ActiveQuery - результат выборки
      */
     public function getNewTasks(): ActiveQuery
     {

@@ -44,9 +44,9 @@ class LoginController extends Controller
     }
 
     /**
-     * Displays homepage.
-     *
-     * @return string
+     * Гостевая страница.
+     * 
+     * 
      */
 
     public function actionIndex()
@@ -73,7 +73,12 @@ class LoginController extends Controller
         return $this->render('index', ['loginForm' => $loginForm]);
     }
 
-    public function actions()
+    /**
+     * Объявляет внешние действия для контроллера
+     * 
+     * @return array
+     */
+    public function actions(): array
     {
         return [
             'auth' => [
@@ -83,6 +88,12 @@ class LoginController extends Controller
         ];
     }
 
+
+    /**
+     * @param $client - экземпляр класса, реализующего yii\authclient\ClientInterface
+     * 
+     * @return Response
+     */
     public function onAuthSuccess(ClientInterface $client)
     {
         $attributes = $client->getUserAttributes();

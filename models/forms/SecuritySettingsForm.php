@@ -15,6 +15,9 @@ class SecuritySettingsForm extends Model
     public string $newPasswordRepeat = '';
     public bool $showContacts = true;
 
+    /**
+     * @inheritDoc
+     */
     public function rules(): array
     {
         return [
@@ -26,6 +29,9 @@ class SecuritySettingsForm extends Model
         ];
     }
 
+    /**
+     * @inheritDoc
+     */
     public function attributeLabels()
     {
         return [
@@ -36,6 +42,11 @@ class SecuritySettingsForm extends Model
         ];
     }
 
+    /**
+     * Метод валидации пароля при изменении настроек безопасности
+     * 
+     * @param string $attribute - строка из поля 'password' формы настроек
+     */
     public function validatePassword($attribute)
     {
         if (!$this->hasErrors()) {
@@ -46,6 +57,11 @@ class SecuritySettingsForm extends Model
         }
     }
 
+    /**
+     * Метод сохранения изменений в настройках безопасности
+     * 
+     * @return bool
+     */
     public function changeSettings(): bool
     {
         $currentUser = Yii::$app->user->identity;

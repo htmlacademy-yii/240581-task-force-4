@@ -62,26 +62,41 @@ class User extends ActiveRecord implements IdentityInterface
     public const MAX_LENGTH_STATUS = 10;
     public $password_repeat;
 
+    /**
+     * {@inheritdoc}
+     */
     public static function findIdentity($id)
     {
         return self::findOne($id);
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public static function findIdentityByAccessToken($token, $type = null)
     {
         // TODO: Implement findIdentityByAccessToken() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getId()
     {
         return $this->getPrimaryKey();
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function getAuthKey()
     {
         // TODO: Implement getAuthKey() method.
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function validateAuthKey($authKey)
     {
         // TODO: Implement validateAuthKey() method.
@@ -122,6 +137,11 @@ class User extends ActiveRecord implements IdentityInterface
         ];
     }
 
+    /**
+     * Метод валидации пароля
+     * 
+     * @param string $password - строка из поля 'password'
+     */
     public function validatePassword($password)
     {
         return Yii::$app->security->validatePassword($password, $this->password);

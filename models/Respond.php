@@ -107,7 +107,16 @@ class Respond extends \yii\db\ActiveRecord
         return $this->hasOne(Task::class, ['task_id' => 'task_id']);
     }
 
-    public static function processOffer(int $respond_id, string $offerStatus)
+    /**
+     * Действие заказчика с откликом на задание
+     * 
+     * @param int $respond_id - id отклика
+     * @param string $offerStatus - новый статус задания
+     * @return Respond|null
+     * @throws NotFoundHttpException
+     * @throws DataSaveException
+     */
+    public static function processOffer(int $respond_id, string $offerStatus): ?Respond
     {
         $user = Yii::$app->user->getIdentity();
         $response = Respond::find()
@@ -150,7 +159,15 @@ class Respond extends \yii\db\ActiveRecord
             }
         }
     }
-    public static function getResponse(int $user_id, int $task_id)
+
+    /**
+     * Метод получения отклика на задание
+     * 
+     * @param int $user_id - id исполнителя
+     * @param int $task_id - id задания
+     * @return Respond|null
+     */
+    public static function getResponse(int $user_id, int $task_id): ?Respond
     {
         return Respond::find()
             ->andWhere(['executor_id' => $user_id, 'task_id' => $task_id])
