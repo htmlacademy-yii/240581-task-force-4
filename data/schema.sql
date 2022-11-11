@@ -34,21 +34,17 @@ CREATE TABLE `user` (
     /* Столбец "user_role" удалён в миграции m221106_141708_drop_column_user_role_from_user_table */
     `user_role` VARCHAR(45) DEFAULT NULL,
     `show_contacts` INT(10) DEFAULT NULL,
-    FOREIGN KEY (`city_id`) REFERENCES city (`city_id`)
+    FOREIGN KEY (`city_id`) REFERENCES `city` (`city_id`)
 );
-
-
 
 CREATE TABLE `user_category` (
     `id` INT PRIMARY KEY AUTO_INCREMENT,
     `user_id` INT NOT NULL,
     `category_id` INT NOT NULL,
-    FOREIGN KEY (`user_id`) REFERENCES user (`user_id`) ON DELETE CASCADE,
+    FOREIGN KEY (`user_id`) REFERENCES `user` (`user_id`) ON DELETE CASCADE,
     FOREIGN KEY (`category_id`) REFERENCES `category` (`category_id`) ON DELETE CASCADE,
     UNIQUE KEY `relation_row_unique` (`category_id`, `user_id`)
 );
-
-
 
 CREATE TABLE `task` (
     `task_id` INT PRIMARY KEY AUTO_INCREMENT,
