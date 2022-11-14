@@ -18,7 +18,7 @@ use app\widgets\UserProfileMenuWidget;
         <div class="photo-editing">
             <div>
                 <p class="form-label">Аватар</p>
-                <img class="avatar-preview" src="<?= Html::encode(User::USER_AVATAR_UPLOAD_PATH . Yii::$app->user->identity->avatar) ?>" width="83" height="83">
+                <img class="avatar-preview" src="<?= file_exists(Yii::$app->user->identity->avatar) ? Html::encode(User::USER_AVATAR_UPLOAD_PATH . Yii::$app->user->identity->avatar) : Html::encode('img/man-glasses.png') ?>" width="83" height="83">
             </div>
             <?= $form->field($editProfileForm, 'avatar')->fileInput(['hidden' => ''])->label('Сменить аватар', ['class' => 'button button--black']) ?>
         </div>
