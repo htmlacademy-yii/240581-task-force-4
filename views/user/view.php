@@ -17,7 +17,7 @@ use app\widgets\ExecutorStarsWidget;
         <h3 class="head-main"><?= Html::encode($user->name) ?></h3>
         <div class="user-card">
             <div class="photo-rate">
-                <img class="card-photo" src="<?= Html::encode(User::USER_AVATAR_UPLOAD_PATH . $user->avatar) ?>" width="191" height="190" alt="Фото пользователя">
+                <img class="card-photo" src="<?= file_exists($user->avatar) ? Html::encode(User::USER_AVATAR_UPLOAD_PATH . $user->avatar) : Html::encode('img/man-glasses.png') ?>" width="191" height="190" alt="Фото пользователя">
                 <?php if (Yii::$app->user->can(User::ROLE_EXECUTOR)) : ?>
                     <div class="card-rate">
                         <div class="stars-rating big"><?= ExecutorStarsWidget::widget(['rating' => $executorAverageGrade]) ?></div>
@@ -53,7 +53,7 @@ use app\widgets\ExecutorStarsWidget;
                 <div class="response-card">
                     <?php $taskCustomer = Task::find()->with('customer')->where(['customer_id' => $executorTask->customer_id])->one() ?>
 
-                    <img class="customer-photo" src="<?= Html::encode($taskCustomer->customer->avatar) ?>" width="120" height="127" alt="Фото заказчиков">
+                    <img class="customer-photo" src="<?= file_exists($taskCustomer->customer->avatar) ? Html::encode($taskCustomer->customer->avatar) : Html::encode('img/man-sweater.png') ?>" width="120" height="127" alt="Фото заказчиков">
                     <div class="feedback-wrapper">
                         <p class="feedback"><?= Html::encode($executorTask->review) ?></p>
                         <p class="task">Задание «

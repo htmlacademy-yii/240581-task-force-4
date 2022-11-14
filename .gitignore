@@ -37,4 +37,9 @@ tests/_support/_generated
 error.log
 access.log
 config/db.php
-web/uploads/*
+
+web/uploads/avatars/*
+! web/uploads/avatars/.gitkeep
+
+web/uploads/user-files/*
+! web/uploads/user-files/.gitkeep

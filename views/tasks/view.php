@@ -36,7 +36,7 @@ use app\widgets\MapWidget;
             <?php foreach ($task->responds as $response) : ?>
                 <?php if ($user->user_id === $task->customer_id || $user->user_id === $response->executor_id) : ?>
                     <div class="response-card">
-                        <img class="customer-photo" src="<?= Html::encode(User::USER_AVATAR_UPLOAD_PATH . $response->executor->avatar) ?>" width="146" height="156" alt="Фото заказчиков">
+                        <img class="customer-photo" src="<?= file_exists($response->executor->avatar) ? Html::encode(User::USER_AVATAR_UPLOAD_PATH . $response->executor->avatar) : Html::encode('img/man-glasses.png') ?>" width="146" height="156" alt="Фото заказчиков">
                         <div class="feedback-wrapper">
                             <a href="<?= Url::to(['user/view', 'id' => $response->executor_id]) ?>" class="link link--block link--big"><?= Html::encode($response->executor->name) ?></a>
                             <div class="response-wrapper">

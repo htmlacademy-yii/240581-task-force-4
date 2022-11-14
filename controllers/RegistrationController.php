@@ -44,13 +44,12 @@ class RegistrationController extends \yii\web\Controller
 
         if (Yii::$app->request->getIsPost()) {
             $registrationForm->load(Yii::$app->request->post());
+
+            if ($registrationForm->validate() && $registrationForm->createUser()) {
+
+                return $this->redirect(['login/index']);
+            }
         }
-
-        if ($registrationForm->validate() && $registrationForm->createUser()) {
-
-            return $this->redirect(['login/index']);
-        }
-
         return $this->render(
             'index',
             [

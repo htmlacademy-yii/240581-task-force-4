@@ -55,7 +55,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => '@w
         <?php if (!Yii::$app->user->isGuest) : ?>
             <div class="user-block">
                 <a href="<?= Url::to('user/view/' . Yii::$app->user->identity->id) ?>">
-                    <img class="user-photo" src="<?= Html::encode(User::USER_AVATAR_UPLOAD_PATH . Yii::$app->user->identity->avatar) ?>" width="55" height="55" alt="Аватар">
+                    <img class="user-photo" src="<?= file_exists(Yii::$app->user->identity->avatar) ? Html::encode(User::USER_AVATAR_UPLOAD_PATH . Yii::$app->user->identity->avatar) : Html::encode('img/man-glasses.png') ?>" width="55" height="55" alt="Аватар">
                 </a>
                 <div class="user-menu">
                     <p class="user-name"><?= Html::encode(User::findOne(['user_id' => (Yii::$app->user->id)])->name) ?></p>
